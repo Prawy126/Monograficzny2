@@ -4,6 +4,7 @@ from random import random
 
 from _4a_doPrzodu_forward import forward
 from _4b_doTylu_backward import backward
+from _4d_viterbi import viterbi
 
 def printParams( priorPi, przejsciaM, emisjaE ):
     print('początkowe prawdopodobieństwa:\t', '{' \
@@ -197,7 +198,10 @@ if __name__ == '__main__':
     print()
     pi, prz, emi, eta, xi = BaumWelchOneObs(obs, prior0, przejscia0, emisja0,
                                             steps = 2000, shouldPrint=False)
-    #printParams( pi, prz, emi)
+    printParams( pi, prz, emi)
+    most_likely_hiden_states, _, _ = viterbi(obs, prz, emi, priorPi=pi)
+    print(f"most likely hiden states = {most_likely_hiden_states}")
+    print("\n\n")
 
     prior0=[0.2,0.6,0.2]
     print('obs =',obs, ',  prior =',prior0)
@@ -205,6 +209,8 @@ if __name__ == '__main__':
     pi, prz, emi, eta, xi = BaumWelchOneObs(obs, prior0, przejscia0, emisja0,
                                             steps = 2000, shouldPrint=False)
 
+    most_likely_hiden_states, _, _ = viterbi(obs, prz, emi, priorPi=pi)
+    print(f"most likely hiden states = {most_likely_hiden_states}")
     # można zauważyć, że przy nieco różnych 'priorPi' wynik działania (obliczone macierzy) może znacząco różnić się
     # ( choć prawdop. obserwacji względem znaleźionych parametrów modelu są rowne w obu przypadkach )
     
